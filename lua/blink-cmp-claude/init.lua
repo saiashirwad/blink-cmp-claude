@@ -37,11 +37,6 @@ function M.setup(opts)
     slash.commands = require('blink-cmp-claude.discovery').get_all_commands(M.config)
     print('Claude commands refreshed')
   end, { desc = 'Refresh Claude command list' })
-
-  -- load telescope extension if available
-  pcall(function()
-    require('telescope').load_extension('claude')
-  end)
 end
 
 return M

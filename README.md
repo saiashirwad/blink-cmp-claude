@@ -88,30 +88,6 @@ require('blink-cmp-claude').setup({
 - Auto-discovers custom commands from `~/.claude/commands/`
 - Auto-discovers skills from `CLAUDE.md`
 - Auto-discovers MCP plugins
-- Telescope integration for LSP symbol picker
-
-## Telescope Integration
-
-Requires [telescope.nvim](https://github.com/nvim-telescope/telescope.nvim).
-
-### Symbol Picker
-
-Search LSP workspace symbols and insert `@file:line` mentions:
-
-```
-:Telescope claude symbols
-```
-
-**Output format:**
-```
-@src/utils/pricing.ts:42-67 (calculateTotal)
-```
-
-### Suggested Keymap
-
-```lua
-vim.keymap.set('n', '<leader>cs', ':Telescope claude symbols<CR>', { desc = 'Claude: Insert @symbol' })
-```
 
 ## License
 
