@@ -18,21 +18,21 @@ local function discover_custom_commands(config)
       local files = vim.fn.glob(dir .. '/**/*.md', false, true)
       for _, file in ipairs(files) do
         local name = vim.fn.fnamemodify(file, ':t:r')
-        local lines = vim.fn.readfile(file, '', 10)
+        local lines = vim.fn.readfile(file, '', 15)
         local desc = ''
+        local hint = nil
         local in_frontmatter = false
         for _, line in ipairs(lines) do
           if line == '---' then
             in_frontmatter = not in_frontmatter
           elseif in_frontmatter then
             local d = line:match('^description:%s*(.+)$')
-            if d then
-              desc = d
-              break
-            end
+            if d then desc = d end
+            local h = line:match('^argument%-hint:%s*(.+)$')
+            if h then hint = h end
           end
         end
-        table.insert(commands, { name = name, desc = desc, custom = true })
+        table.insert(commands, { name = name, desc = desc, hint = hint, custom = true })
       end
     end
   end

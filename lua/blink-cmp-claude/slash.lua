@@ -28,11 +28,16 @@ function M:get_completions(context, callback)
 
   local items = {}
   for _, cmd in ipairs(self.commands) do
+    local label = '/' .. cmd.name
+    if cmd.hint then
+      label = label .. ' ' .. cmd.hint
+    end
     table.insert(items, {
-      label = '/' .. cmd.name,
+      label = label,
       kind = vim.lsp.protocol.CompletionItemKind.Keyword,
       documentation = cmd.desc,
       insertText = '/' .. cmd.name .. ' ',
+      filterText = '/' .. cmd.name,
     })
   end
 
