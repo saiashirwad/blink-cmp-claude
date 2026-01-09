@@ -32,6 +32,15 @@ function M.setup(opts)
     vim.bo.filetype = M.config.filetype
   end, { desc = 'Enable Claude prompt completions' })
 
+  -- inherit markdown syntax/treesitter for claudeprompt filetype
+  vim.api.nvim_create_autocmd('FileType', {
+    pattern = M.config.filetype,
+    callback = function()
+      vim.bo.syntax = 'markdown'
+      pcall(vim.treesitter.start, 0, 'markdown')
+    end,
+  })
+
   vim.api.nvim_create_user_command('ClaudeRefreshCommands', function()
     local slash = require('blink-cmp-claude.slash')
     slash.commands = require('blink-cmp-claude.discovery').get_all_commands(M.config)
